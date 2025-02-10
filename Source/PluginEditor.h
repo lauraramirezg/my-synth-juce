@@ -18,5 +18,8 @@ private:
     // access the processor object that created it.
     AudioPluginAudioProcessor& processorRef;
 
+    juce::TextButton gainButton;
+    juce::TextButton gainCompen;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (AudioPluginAudioProcessorEditor)
 };

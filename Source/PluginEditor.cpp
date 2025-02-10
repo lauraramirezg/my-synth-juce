@@ -8,6 +8,23 @@ AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor (AudioPluginAud
     juce::ignoreUnused (processorRef);
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
+    addAndMakeVisible(gainButton);
+    gainButton.setButtonText("Gain reduction");
+
+    addAndMakeVisible(gainCompen);
+    gainCompen.setButtonText("Gain compensation");
+
+    gainButton.onClick = [this]
+    {
+        processorRef.gainReduc = true;
+        processorRef.gainComp = false;
+    };
+
+    gainCompen.onClick = [this] {
+        processorRef.gainComp = true;
+        processorRef.gainReduc = false;
+    };
+
     setSize (400, 300);
 }
 
@@ -23,11 +40,19 @@ void AudioPluginAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
+    // g.drawFittedText ("Hello World!", getLocalBounds(), juce::Justification::centred, 1);
 }
 
 void AudioPluginAudioProcessorEditor::resized()
 {
+    auto w = getWidth() * 0.3;
+    auto h = getHeight() * 0.15;
+    auto x  = getWidth()/3;
+    auto y = getHeight()/2;
+
+    gainButton.setBounds(x,y,(int)w, (int)h);
+    gainCompen.setBounds(x + x , y, (int)w, (int)h);
+
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }
